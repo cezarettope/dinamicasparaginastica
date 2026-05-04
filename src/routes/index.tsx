@@ -60,13 +60,15 @@ function Index() {
           Alinhado à BNCC para professores, educadores e famílias.
         </p>
 
-        {/* VSL placeholder */}
-        <div className="mt-6 mx-auto max-w-md aspect-[9/16] rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-dashed border-primary/40 flex items-center justify-center text-center p-6">
-          <div>
-            <div className="text-4xl mb-2">▶️</div>
-            <p className="font-bold text-primary">Espaço para sua VSL</p>
-            <p className="text-xs text-muted-foreground mt-1">Cole aqui o embed do seu vídeo</p>
-          </div>
+        {/* VSL */}
+        <div className="mt-6 mx-auto max-w-md rounded-2xl overflow-hidden shadow-lg border border-pink-soft">
+          <video
+            src="/gym/vsl.mp4"
+            controls
+            playsInline
+            preload="metadata"
+            className="w-full h-auto block bg-black"
+          />
         </div>
 
         <a href="#planos" className="mt-6 inline-block rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold px-8 py-4 shadow-lg shadow-primary/30 hover:scale-105 transition">
@@ -289,7 +291,7 @@ function Index() {
             },
             {
               icon: "👨‍👩‍👧",
-              label: "Pais de Alunas",
+              label: "Pais, Academias e Escolinhas",
               items: [
                 {
                   quote: "Diversão garantida em casa.",
@@ -298,38 +300,12 @@ function Index() {
                   role: "Mãe da Sofia (7 anos)",
                   initials: "CV",
                 },
-              ],
-            },
-            {
-              icon: "🏫",
-              label: "Academias e Escolinhas",
-              items: [
                 {
                   quote: "Padronização e Qualidade.",
                   text: "Adquirimos o material para nossa escola e foi a melhor decisão para os professores iniciantes. Agora temos um padrão de qualidade nas turmas baby e infantil. A coordenação ficou mais fácil e os pais estão encantados com a evolução das crianças.",
                   name: "Academia Salto Olímpico",
                   role: "Diretoria Pedagógica",
                   initials: "SO",
-                },
-              ],
-            },
-            {
-              icon: "📚",
-              label: "Educadores Físicos",
-              items: [
-                {
-                  quote: "Alinhado com a realidade escolar.",
-                  text: "Tinha dificuldade em introduzir a ginástica sem parecer algo inalcançável. Esse material traz atividades alinhadas à BNCC, focando em consciência corporal e competências exigidas. Meus alunos do Fundamental I adoram!",
-                  name: "Prof. Marcos Silva",
-                  role: "Educador Físico",
-                  initials: "MS",
-                },
-                {
-                  quote: "Praticidade para o dia a dia.",
-                  text: "O que mais gostei foi a facilidade de aplicação. A maioria das dinâmicas não exige equipamentos caros. Consigo adaptar para o pátio da escola e garantir participação de todos.",
-                  name: "Juliana Duarte",
-                  role: "Especialista em Educação Física Escolar",
-                  initials: "JD",
                 },
               ],
             },
