@@ -206,14 +206,7 @@ function Index() {
         <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl">
           Invista Na Qualidade Das Suas Aulas
         </h2>
-        <div className="mt-4 flex justify-center gap-2">
-          {[["Horas", t.h], ["Minutos", t.m], ["Segundos", t.s]].map(([l, v]) => (
-            <div key={l as string} className="bg-primary text-white rounded-xl px-4 py-2 text-center min-w-[60px]">
-              <div className="font-bold text-lg">{pad(v as number)}</div>
-              <div className="text-[10px] uppercase">{l}</div>
-            </div>
-          ))}
-        </div>
+        <p className="text-center text-sm text-muted-foreground mt-2">Oferta por tempo limitado — encerra hoje à meia-noite.</p>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Básico */}
           <div className="bg-white rounded-3xl p-6 shadow-md border border-pink-soft">
