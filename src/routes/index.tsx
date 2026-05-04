@@ -60,13 +60,15 @@ function Index() {
           Alinhado à BNCC para professores, educadores e famílias.
         </p>
 
-        {/* VSL placeholder */}
-        <div className="mt-6 mx-auto max-w-md aspect-[9/16] rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 border-2 border-dashed border-primary/40 flex items-center justify-center text-center p-6">
-          <div>
-            <div className="text-4xl mb-2">▶️</div>
-            <p className="font-bold text-primary">Espaço para sua VSL</p>
-            <p className="text-xs text-muted-foreground mt-1">Cole aqui o embed do seu vídeo</p>
-          </div>
+        {/* VSL */}
+        <div className="mt-6 mx-auto max-w-md rounded-2xl overflow-hidden shadow-lg border border-pink-soft">
+          <video
+            src="/gym/vsl.mp4"
+            controls
+            playsInline
+            preload="metadata"
+            className="w-full h-auto block bg-black"
+          />
         </div>
 
         <a href="#planos" className="mt-6 inline-block rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold px-8 py-4 shadow-lg shadow-primary/30 hover:scale-105 transition">
