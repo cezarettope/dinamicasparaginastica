@@ -40,7 +40,16 @@ function Index() {
       </div>
 
       {/* HERO */}
-      <section className="bg-white px-4 pt-8 pb-12 text-center">
+      <section className="bg-white px-4 pt-6 pb-12 text-center">
+        {/* Countdown above headline */}
+        <div className="flex justify-center gap-2 mb-5">
+          {[["Horas", t.h], ["Min", t.m], ["Seg", t.s]].map(([l, v]) => (
+            <div key={l as string} className="bg-primary text-white rounded-xl px-3 py-2 text-center min-w-[56px]">
+              <div className="font-bold text-lg leading-none">{pad(v as number)}</div>
+              <div className="text-[10px] uppercase mt-1">{l as string}</div>
+            </div>
+          ))}
+        </div>
         <h1 className="font-display font-extrabold text-2xl sm:text-4xl leading-tight max-w-3xl mx-auto">
           <span className="text-secondary">+250</span> Dinâmicas Interativas
           <br />de <span className="text-primary">Ginástica Artística e Rítmica</span>
