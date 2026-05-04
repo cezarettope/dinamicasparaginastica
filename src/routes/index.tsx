@@ -10,17 +10,19 @@ const LINK_PREMIUM = `https://go.perfectpay.com.br/PPU38CQBEGF?${UTM_QS}`;
 const LINK_BASICO = `https://go.perfectpay.com.br/PPU38CQBEH4?${UTM_QS}`;
 
 function useCountdown() {
-  const [t, setT] = useState({ h: 0, m: 7, s: 41 });
+  const calc = () => {
+    const now = new Date();
+    const end = new Date(now);
+    end.setHours(23, 59, 59, 999);
+    const diff = Math.max(0, end.getTime() - now.getTime());
+    const h = Math.floor(diff / 3_600_000);
+    const m = Math.floor((diff % 3_600_000) / 60_000);
+    const s = Math.floor((diff % 60_000) / 1000);
+    return { h, m, s };
+  };
+  const [t, setT] = useState(calc);
   useEffect(() => {
-    const i = setInterval(() => {
-      setT((p) => {
-        let { h, m, s } = p;
-        if (s > 0) s--;
-        else if (m > 0) { m--; s = 59; }
-        else if (h > 0) { h--; m = 59; s = 59; }
-        return { h, m, s };
-      });
-    }, 1000);
+    const i = setInterval(() => setT(calc()), 1000);
     return () => clearInterval(i);
   }, []);
   return t;
@@ -38,7 +40,16 @@ function Index() {
       </div>
 
       {/* HERO */}
-      <section className="bg-white px-4 pt-8 pb-12 text-center">
+      <section className="bg-white px-4 pt-6 pb-12 text-center">
+        {/* Countdown above headline */}
+        <div className="flex justify-center gap-2 mb-5">
+          {[["Horas", t.h], ["Min", t.m], ["Seg", t.s]].map(([l, v]) => (
+            <div key={l as string} className="bg-primary text-white rounded-xl px-3 py-2 text-center min-w-[56px]">
+              <div className="font-bold text-lg leading-none">{pad(v as number)}</div>
+              <div className="text-[10px] uppercase mt-1">{l as string}</div>
+            </div>
+          ))}
+        </div>
         <h1 className="font-display font-extrabold text-2xl sm:text-4xl leading-tight max-w-3xl mx-auto">
           <span className="text-secondary">+250</span> Dinâmicas Interativas
           <br />de <span className="text-primary">Ginástica Artística e Rítmica</span>
@@ -195,14 +206,7 @@ function Index() {
         <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl">
           Invista Na Qualidade Das Suas Aulas
         </h2>
-        <div className="mt-4 flex justify-center gap-2">
-          {[["Horas", t.h], ["Minutos", t.m], ["Segundos", t.s]].map(([l, v]) => (
-            <div key={l as string} className="bg-primary text-white rounded-xl px-4 py-2 text-center min-w-[60px]">
-              <div className="font-bold text-lg">{pad(v as number)}</div>
-              <div className="text-[10px] uppercase">{l}</div>
-            </div>
-          ))}
-        </div>
+        <p className="text-center text-sm text-muted-foreground mt-2">Oferta por tempo limitado — encerra hoje à meia-noite.</p>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {/* Básico */}
           <div className="bg-white rounded-3xl p-6 shadow-md border border-pink-soft">
@@ -254,16 +258,108 @@ function Index() {
       {/* Depoimentos */}
       <section className="bg-white px-4 py-12">
         <p className="text-center text-xs font-bold text-primary tracking-widest">RESULTADOS REAIS</p>
-        <h2 className="text-center font-display font-extrabold text-xl sm:text-3xl mt-2">
-          O QUE NOSSAS <span className="text-primary">PROFESSORAS ESTÃO FALANDO</span>
+        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl mt-2">
+          Depoimentos de <span className="text-primary">Clientes</span>
         </h2>
         <p className="text-center text-sm text-muted-foreground mt-2 max-w-xl mx-auto">
-          Veja depoimentos reais de professoras e academias que já utilizam nossas dinâmicas.
+          Veja o que professores, pais, academias e educadores estão dizendo sobre o material.
         </p>
-        <div className="mt-8 max-w-md mx-auto bg-pink-bg rounded-2xl p-5 shadow-sm">
-          <div className="text-yellow-500">★★★★★</div>
-          <p className="text-sm mt-2">"Minhas alunas adoraram! As dinâmicas são fáceis de aplicar e o engajamento aumentou muito. Recomendo demais!"</p>
-          <p className="mt-3 text-xs font-bold">— Profª Carla, Treinadora de Ginástica</p>
+
+        <div className="mt-10 max-w-5xl mx-auto space-y-10">
+          {[
+            {
+              icon: "🤸",
+              label: "Professores e Treinadores",
+              items: [
+                {
+                  quote: "Minhas aulas mudaram da água para o vinho!",
+                  text: "Eu sentia que minhas alunas estavam perdendo o foco com os treinos tradicionais. Depois que comecei a aplicar as dinâmicas do material, o engajamento foi total. As crianças agora pedem para treinar e absorvem os fundamentos de GA e GR de forma muito mais natural. É um investimento que se paga na primeira semana.",
+                  name: "Ricardo Mello",
+                  role: "Treinador de Ginástica Artística",
+                  initials: "RM",
+                },
+                {
+                  quote: "Variedade impressionante.",
+                  text: "Trabalho com GR há 10 anos e às vezes a criatividade esgota. Ter mais de 250 opções facilita demais o planejamento. O conteúdo é prático, direto ao ponto e bem estruturado. Me poupou horas de pesquisa.",
+                  name: "Letícia Fontes",
+                  role: "Professora de GR",
+                  initials: "LF",
+                },
+              ],
+            },
+            {
+              icon: "👨‍👩‍👧",
+              label: "Pais de Alunas",
+              items: [
+                {
+                  quote: "Diversão garantida em casa.",
+                  text: "Minha filha ama ginástica, mas eu não sabia como ajudá-la a praticar de forma segura e divertida. O guia de dinâmicas lúdicas foi a solução! Brincamos juntas e ela desenvolve a coordenação sem perceber que está treinando. Recomendo para todos os pais.",
+                  name: "Camila Vasconcelos",
+                  role: "Mãe da Sofia (7 anos)",
+                  initials: "CV",
+                },
+              ],
+            },
+            {
+              icon: "🏫",
+              label: "Academias e Escolinhas",
+              items: [
+                {
+                  quote: "Padronização e Qualidade.",
+                  text: "Adquirimos o material para nossa escola e foi a melhor decisão para os professores iniciantes. Agora temos um padrão de qualidade nas turmas baby e infantil. A coordenação ficou mais fácil e os pais estão encantados com a evolução das crianças.",
+                  name: "Academia Salto Olímpico",
+                  role: "Diretoria Pedagógica",
+                  initials: "SO",
+                },
+              ],
+            },
+            {
+              icon: "📚",
+              label: "Educadores Físicos",
+              items: [
+                {
+                  quote: "Alinhado com a realidade escolar.",
+                  text: "Tinha dificuldade em introduzir a ginástica sem parecer algo inalcançável. Esse material traz atividades alinhadas à BNCC, focando em consciência corporal e competências exigidas. Meus alunos do Fundamental I adoram!",
+                  name: "Prof. Marcos Silva",
+                  role: "Educador Físico",
+                  initials: "MS",
+                },
+                {
+                  quote: "Praticidade para o dia a dia.",
+                  text: "O que mais gostei foi a facilidade de aplicação. A maioria das dinâmicas não exige equipamentos caros. Consigo adaptar para o pátio da escola e garantir participação de todos.",
+                  name: "Juliana Duarte",
+                  role: "Especialista em Educação Física Escolar",
+                  initials: "JD",
+                },
+              ],
+            },
+          ].map((cat) => (
+            <div key={cat.label}>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-pink-soft flex items-center justify-center text-xl">{cat.icon}</div>
+                <h3 className="font-display font-bold text-lg">{cat.label}</h3>
+                <div className="flex-1 h-px bg-pink-soft" />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {cat.items.map((d) => (
+                  <div key={d.name} className="bg-pink-bg rounded-2xl p-5 shadow-sm border border-pink-soft flex flex-col">
+                    <div className="text-yellow-500 text-sm">★★★★★</div>
+                    <p className="italic font-semibold text-foreground mt-2">"{d.quote}"</p>
+                    <p className="text-sm text-muted-foreground mt-2 flex-1">{d.text}</p>
+                    <div className="flex items-center gap-3 mt-4 pt-4 border-t border-pink-soft">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center font-bold text-sm">
+                        {d.initials}
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold leading-tight">{d.name}</p>
+                        <p className="text-xs text-muted-foreground">{d.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
