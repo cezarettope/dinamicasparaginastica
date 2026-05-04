@@ -30,61 +30,91 @@ function useCountdown() {
 
 const pad = (n: number) => n.toString().padStart(2, "0");
 
-function Index() {
+function Countdown({ variant = "light" }: { variant?: "light" | "dark" }) {
   const t = useCountdown();
+  const items: [string, number][] = [["Horas", t.h], ["Min", t.m], ["Seg", t.s]];
+  return (
+    <div className="flex justify-center gap-2">
+      {items.map(([l, v]) => (
+        <div
+          key={l}
+          className={
+            variant === "dark"
+              ? "bg-white/15 backdrop-blur border border-white/20 text-white rounded-xl px-3 py-2 text-center min-w-[60px]"
+              : "bg-purple-royal text-white rounded-xl px-3 py-2 text-center min-w-[60px] shadow-glow-purple"
+          }
+        >
+          <div className="font-extrabold text-xl leading-none tabular-nums">{pad(v)}</div>
+          <div className="text-[10px] uppercase mt-1 tracking-wider opacity-90">{l}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Index() {
   return (
     <main className="overflow-x-hidden">
       {/* Top bar */}
-      <div className="bg-secondary text-secondary-foreground text-center text-xs sm:text-sm py-2 px-3 font-semibold">
+      <div className="bg-purple-deep text-white text-center text-xs sm:text-sm py-2 px-3 font-semibold">
         🤸‍♀️ DIFÍCIL MANTER A ATENÇÃO DAS PEQUENAS GINASTAS?
       </div>
 
       {/* HERO */}
-      <section className="bg-white px-4 pt-6 pb-12 text-center">
-        {/* Countdown above headline */}
-        <div className="flex justify-center gap-2 mb-5">
-          {[["Horas", t.h], ["Min", t.m], ["Seg", t.s]].map(([l, v]) => (
-            <div key={l as string} className="bg-primary text-white rounded-xl px-3 py-2 text-center min-w-[56px]">
-              <div className="font-bold text-lg leading-none">{pad(v as number)}</div>
-              <div className="text-[10px] uppercase mt-1">{l as string}</div>
+      <section className="bg-hero-gradient text-white px-4 pt-8 pb-14 text-center relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30 pointer-events-none"
+             style={{ backgroundImage: "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15), transparent 40%), radial-gradient(circle at 80% 60%, rgba(255,200,0,0.15), transparent 40%)" }} />
+        <div className="relative">
+          <Countdown variant="dark" />
+          <div className="inline-block mt-5 px-4 py-1 rounded-full bg-gold/20 border border-gold/40 text-gold-soft text-[11px] font-bold tracking-widest">
+            ⭐ MÉTODO ALINHADO À BNCC
+          </div>
+          <h1 className="font-display font-black text-3xl sm:text-5xl leading-tight max-w-3xl mx-auto mt-4">
+            DIFÍCIL MANTER A <span className="text-gold-gradient">ATENÇÃO</span><br className="hidden sm:block" /> DAS PEQUENAS GINASTAS?
+          </h1>
+          <p className="mt-4 text-base sm:text-xl font-semibold max-w-2xl mx-auto">
+            <span className="text-gold-gradient font-extrabold">+250 Dinâmicas Interativas</span> de Ginástica Artística e Rítmica prontas para aplicar em aula.
+          </p>
+
+          {/* VSL — phone mockup */}
+          <div className="mt-8 flex justify-center">
+            <div className="relative w-full max-w-[300px]">
+              <div className="bg-gradient-to-br from-gold to-pink-neon p-[3px] rounded-[3rem] shadow-glow-gold">
+                <div className="bg-[#0a0a0a] rounded-[2.8rem] p-3 relative">
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-10" />
+                  <div className="overflow-hidden rounded-[2rem] aspect-[9/16] bg-black">
+                    <video
+                      src="/gym/vsl.mp4"
+                      controls
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover block"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-pink-neon text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-glow-pink">
+                ▶ ASSISTA AGORA
+              </div>
             </div>
-          ))}
-        </div>
-        <h1 className="font-display font-extrabold text-2xl sm:text-4xl leading-tight max-w-3xl mx-auto">
-          <span className="text-secondary">+250</span> Dinâmicas Interativas
-          <br />de <span className="text-primary">Ginástica Artística e Rítmica</span>
-          <br />Prontas para Aplicar em Aula
-        </h1>
-        <p className="mt-4 text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
-          Acesso imediato a atividades interativas que estimulam coordenação, expressão corporal e técnica.
-          Alinhado à BNCC para professores, educadores e famílias.
-        </p>
+          </div>
 
-        {/* VSL */}
-        <div className="mt-6 mx-auto max-w-md rounded-2xl overflow-hidden shadow-lg border border-pink-soft">
-          <video
-            src="/gym/vsl.mp4"
-            controls
-            playsInline
-            preload="metadata"
-            className="w-full h-auto block bg-black"
-          />
+          <a href="#planos" className="mt-10 inline-block rounded-full bg-gradient-to-r from-gold to-pink-neon text-purple-deep font-black px-10 py-4 shadow-glow-gold hover:scale-105 transition text-sm sm:text-base">
+            QUERO MINHAS DINÂMICAS AGORA!
+          </a>
+          <p className="text-xs mt-3 opacity-80">✓ Garantia de 7 dias · ✓ Acesso imediato</p>
         </div>
-
-        <a href="#planos" className="mt-6 inline-block rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold px-8 py-4 shadow-lg shadow-primary/30 hover:scale-105 transition">
-          QUERO MINHAS DINÂMICAS AGORA!
-        </a>
       </section>
 
       {/* O que recebe */}
-      <section className="bg-pink-bg px-4 py-12">
-        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl">
-          O Que Você <span className="text-primary">Vai Receber?</span>
+      <section className="bg-pink-bg px-4 py-14">
+        <h2 className="text-center font-display font-black text-2xl sm:text-3xl">
+          O Que Você <span className="text-pink-neon">Vai Receber?</span>
         </h2>
         <p className="text-center text-sm text-muted-foreground mt-2 max-w-xl mx-auto">
-          Tudo que você precisa para transformar suas aulas de ginástica em experiência inesquecível.
+          Tudo que você precisa para transformar suas aulas de ginástica em uma experiência inesquecível.
         </p>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
           {[
             ["🤸", "+250 Dinâmicas", "Atividades prontas para aplicar direto no tablado."],
             ["🎁", "Bônus Exclusivos", "Jogos, exercícios e certificado sem custo adicional."],
@@ -93,8 +123,8 @@ function Index() {
             ["🖨️", "Pronto para Imprimir", "Leve para a aula sem depender de tecnologia."],
             ["🏅", "Alinhado à BNCC", "Metodologia reconhecida para educadores e pais."],
           ].map(([e, t, d]) => (
-            <div key={t} className="bg-white rounded-2xl p-5 shadow-sm border border-pink-soft">
-              <div className="w-10 h-10 rounded-lg bg-pink-soft flex items-center justify-center text-xl">{e}</div>
+            <div key={t} className="bg-white rounded-2xl p-5 shadow-sm border border-pink-soft hover:shadow-glow-pink transition">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-royal to-pink-neon flex items-center justify-center text-2xl">{e}</div>
               <h3 className="mt-3 font-bold">{t}</h3>
               <p className="text-sm text-muted-foreground mt-1">{d}</p>
             </div>
@@ -103,10 +133,10 @@ function Index() {
       </section>
 
       {/* Para quem é */}
-      <section className="bg-white px-4 py-12">
-        <p className="text-center text-xs font-bold text-primary tracking-widest">PARA QUEM É?</p>
-        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl mt-2">
-          Este kit foi feito <span className="text-primary">para você se...</span>
+      <section className="bg-white px-4 py-14">
+        <p className="text-center text-xs font-bold text-pink-neon tracking-widest">PARA QUEM É?</p>
+        <h2 className="text-center font-display font-black text-2xl sm:text-3xl mt-2">
+          Este kit foi feito <span className="text-purple-royal">para você se...</span>
         </h2>
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {[
@@ -115,8 +145,8 @@ function Index() {
             ["🏫", "Academias e Escolinhas", "Que precisam de material pronto para turmas infantis e iniciantes."],
             ["📚", "Educadores Físicos", "Que buscam atividades alinhadas à BNCC com base em ginástica."],
           ].map(([e, t, d]) => (
-            <div key={t} className="flex gap-3 items-start bg-pink-bg rounded-2xl p-4">
-              <div className="text-2xl">{e}</div>
+            <div key={t} className="flex gap-3 items-start bg-pink-bg rounded-2xl p-5 border border-pink-soft">
+              <div className="text-3xl">{e}</div>
               <div>
                 <h3 className="font-bold">{t}</h3>
                 <p className="text-sm text-muted-foreground">{d}</p>
@@ -126,77 +156,92 @@ function Index() {
         </div>
       </section>
 
-      {/* Dores */}
-      <section className="bg-pink-bg px-4 py-12">
-        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl">
-          Você já passou <span className="text-primary">por isso?</span> 😩
+      {/* Dores e Solução lado a lado */}
+      <section className="bg-gradient-to-b from-pink-bg to-white px-4 py-14">
+        <h2 className="text-center font-display font-black text-2xl sm:text-3xl">
+          Você já passou <span className="text-pink-neon">por isso?</span>
         </h2>
         <p className="text-center text-sm text-muted-foreground mt-2 max-w-xl mx-auto">
-          Se você respondeu sim para qualquer uma dessas perguntas, você não está sozinha.
+          De um lado as dores. Do outro, a solução pronta para aplicar.
         </p>
-        <div className="mt-6 max-w-2xl mx-auto space-y-3">
-          {[
-            "Sua aula começa e em 5 minutos as crianças já estão dispersas?",
-            "Você passa mais tempo pedindo silêncio do que ensinando técnica?",
-            "Sente que improvisa demais e planeja de menos?",
-            "Vê a academia do concorrente cheia enquanto a sua não cresce?",
-            "Tem vontade de desistir de ensinar para crianças?",
-          ].map((q) => (
-            <div key={q} className="bg-white rounded-full px-5 py-3 flex items-center gap-3 shadow-sm">
-              <span className="text-primary font-bold">✗</span>
-              <span className="text-sm">{q}</span>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* Solução */}
-      <section className="bg-white px-4 py-12">
-        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl">
-          Agora você tem uma <span className="text-primary">solução simples</span> 💡
-        </h2>
-        <p className="text-center text-sm text-muted-foreground mt-2 max-w-xl mx-auto">
-          O Kit de Dinâmicas Interativas de Ginástica foi criado para resolver exatamente esses problemas de forma prática, rápida e acessível.
-        </p>
-        <div className="mt-6 max-w-2xl mx-auto space-y-2">
-          {[
-            "Mais de 250 dinâmicas prontas, sem precisar criar do zero",
-            "Aulas planejadas que mantêm a atenção das crianças do início ao fim",
-            "Conteúdo alinhado à BNCC, reconhecido e aprovado",
-            "Material visual e simples, aplique ainda hoje",
-            "Resultado visível na primeira aula",
-          ].map((q) => (
-            <div key={q} className="flex items-center gap-3 text-sm">
-              <span className="text-primary font-bold">✓</span>
-              <span>{q}</span>
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl mx-auto">
+          {/* Problemas */}
+          <div className="bg-white rounded-3xl p-6 border-2 border-red-200 shadow-sm">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-9 h-9 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-black">✗</div>
+              <h3 className="font-bold text-lg text-red-600">Os Problemas</h3>
             </div>
-          ))}
+            <ul className="space-y-3">
+              {[
+                "Aulas que perdem o foco em 5 minutos",
+                "Mais tempo pedindo silêncio do que ensinando",
+                "Improviso constante e falta de planejamento",
+                "Academia do concorrente cheia, a sua não cresce",
+                "Vontade de desistir de ensinar para crianças",
+              ].map((q) => (
+                <li key={q} className="flex items-start gap-3 text-sm">
+                  <span className="mt-0.5 w-5 h-5 shrink-0 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-black">✗</span>
+                  <span>{q}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Solução */}
+          <div className="bg-gradient-to-br from-purple-royal to-purple-deep text-white rounded-3xl p-6 shadow-glow-purple">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-9 h-9 rounded-full bg-gold text-purple-deep flex items-center justify-center font-black">✓</div>
+              <h3 className="font-bold text-lg text-gold-gradient">A Solução</h3>
+            </div>
+            <ul className="space-y-3">
+              {[
+                "+250 dinâmicas prontas, sem criar do zero",
+                "Aulas que prendem a atenção do início ao fim",
+                "Conteúdo alinhado à BNCC, aprovado por educadores",
+                "Material visual e simples, aplique ainda hoje",
+                "Resultado visível já na primeira aula",
+              ].map((q) => (
+                <li key={q} className="flex items-start gap-3 text-sm">
+                  <span className="mt-0.5 w-5 h-5 shrink-0 rounded-full bg-gold text-purple-deep flex items-center justify-center text-xs font-black">✓</span>
+                  <span>{q}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
       {/* Bônus */}
-      <section className="bg-secondary text-white px-4 py-12">
-        <p className="text-center text-xs font-bold tracking-widest bg-white/15 inline-block px-3 py-1 rounded-full mx-auto">
-          <span className="block">BÔNUS EXCLUSIVOS</span>
-        </p>
-        <div className="text-center">
-          <h2 className="font-display font-extrabold text-2xl sm:text-3xl mt-3">
-            Receba 3 Bônus Incríveis GRÁTIS!
+      <section className="bg-purple-deep text-white px-4 py-14 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20"
+             style={{ backgroundImage: "radial-gradient(circle at 30% 20%, var(--pink-neon), transparent 40%), radial-gradient(circle at 70% 80%, var(--gold), transparent 40%)" }} />
+        <div className="relative text-center">
+          <span className="inline-block text-xs font-black tracking-widest bg-gold text-purple-deep px-4 py-1.5 rounded-full">
+            🎁 BÔNUS EXCLUSIVOS
+          </span>
+          <h2 className="font-display font-black text-2xl sm:text-3xl mt-4">
+            Receba <span className="text-gold-gradient">3 Bônus Incríveis</span> GRÁTIS!
           </h2>
-          <p className="text-sm mt-1 opacity-90">Valor total dos bônus: R$97,00 <span className="opacity-75">(Hoje sai de graça)</span></p>
+          <p className="text-sm mt-2 opacity-90">Valor total dos bônus: <span className="line-through opacity-70">R$ 97,00</span> · <span className="font-black text-gold-gradient">Hoje sai de graça</span></p>
         </div>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-5xl mx-auto relative">
           {[
-            ["/gym/certificado.jpg", "Certificado de Ginasta", "R$27"],
-            ["/gym/jogos.jpg", "Jogos de Ginástica", "R$37"],
-            ["/gym/exercicios.jpg", "100 Exercícios de Ginástica", "R$33"],
+            ["/gym/certificado.jpg", "Certificado de Ginasta", "R$ 27"],
+            ["/gym/jogos.jpg", "Jogos de Ginástica", "R$ 37"],
+            ["/gym/exercicios.jpg", "100 Exercícios de Ginástica", "R$ 33"],
           ].map(([src, name, val]) => (
-            <div key={name} className="bg-white text-foreground rounded-2xl overflow-hidden shadow-lg">
-              <img src={src} alt={name} loading="lazy" className="w-full h-44 object-cover" />
-              <div className="p-4">
+            <div key={name} className="bg-white text-foreground rounded-2xl overflow-hidden shadow-glow-gold border-2 border-gold relative group hover:-translate-y-1 transition">
+              <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-pink-neon to-purple-royal text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-lg rotate-3">
+                GRÁTIS HOJE
+              </div>
+              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-pink-soft to-pink-bg">
+                <img src={src} alt={name} loading="lazy" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-4 text-center">
                 <h3 className="font-bold">{name}</h3>
-                <p className="text-sm text-muted-foreground">Valor separado: {val}</p>
-                <p className="mt-2 text-xs font-bold text-primary">+ HOJE GRÁTIS</p>
+                <p className="text-sm text-muted-foreground line-through">De {val}</p>
+                <p className="mt-1 font-black text-pink-neon">+ HOJE GRÁTIS</p>
               </div>
             </div>
           ))}
@@ -204,70 +249,82 @@ function Index() {
       </section>
 
       {/* Planos */}
-      <section id="planos" className="bg-pink-bg px-4 py-12">
-        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl">
-          Invista Na Qualidade Das Suas Aulas
-        </h2>
-        <p className="text-center text-sm text-muted-foreground mt-2">Oferta por tempo limitado — encerra hoje à meia-noite.</p>
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <section id="planos" className="bg-pink-bg px-4 py-14">
+        <div className="text-center max-w-2xl mx-auto">
+          <span className="inline-block bg-pink-neon text-white text-[11px] font-black tracking-widest px-3 py-1 rounded-full">
+            🔥 OFERTA POR TEMPO LIMITADO
+          </span>
+          <h2 className="mt-3 font-display font-black text-2xl sm:text-3xl">
+            Invista Na Qualidade <span className="text-purple-royal">Das Suas Aulas</span>
+          </h2>
+          <p className="text-sm text-muted-foreground mt-2">A oferta encerra hoje à meia-noite — depois disso, o preço volta ao normal.</p>
+          <div className="mt-5"><Countdown /></div>
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-start">
           {/* Básico */}
           <div className="bg-white rounded-3xl p-6 shadow-md border border-pink-soft">
             <h3 className="font-bold text-xl">Plano Básico</h3>
             <p className="text-sm text-muted-foreground">Para quem está começando agora.</p>
             <p className="mt-4 text-sm text-muted-foreground line-through">De R$ 67</p>
-            <p className="text-3xl font-extrabold text-primary">R$ 10,00</p>
+            <p className="text-4xl font-black text-purple-royal">R$ 10,00</p>
             <p className="text-xs text-muted-foreground">Pagamento único</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>✓ +250 Dinâmicas Interativas</li>
-              <li>✓ Acesso Vitalício</li>
-              <li>✓ Metodologia Comprovada</li>
-              <li>✓ Garantia de 7 dias</li>
+            <ul className="mt-5 space-y-2 text-sm">
+              {["+250 Dinâmicas Interativas", "Acesso Vitalício", "Metodologia Comprovada", "Garantia de 7 dias"].map((i) => (
+                <li key={i} className="flex gap-2"><span className="text-purple-royal font-bold">✓</span>{i}</li>
+              ))}
             </ul>
-            <a href={LINK_BASICO} className="mt-6 block text-center rounded-full bg-foreground text-white font-bold py-3">
+            <a href={LINK_BASICO} className="mt-6 block text-center rounded-full bg-foreground text-white font-bold py-3 hover:bg-purple-deep transition">
               ESCOLHER BÁSICO
             </a>
           </div>
 
-          {/* Premium */}
-          <div className="bg-white rounded-3xl p-6 shadow-xl border-2 border-primary relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
-              MAIS POPULAR
+          {/* Premium — dominante */}
+          <div className="bg-gradient-to-br from-purple-royal to-purple-deep text-white rounded-3xl p-6 shadow-glow-pink border-2 border-gold relative md:scale-105">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold to-pink-neon text-purple-deep text-xs font-black px-4 py-1.5 rounded-full whitespace-nowrap shadow-lg">
+              ⭐ MAIS POPULAR
             </div>
-            <h3 className="font-bold text-xl">Plano Premium</h3>
-            <p className="text-sm text-muted-foreground">O arsenal completo para suas aulas.</p>
-            <img src="/gym/produto.png" alt="Produto" loading="lazy" className="w-full h-48 object-contain my-3" />
+            <h3 className="font-bold text-xl mt-2">Plano Premium</h3>
+            <p className="text-sm opacity-80">O arsenal completo para suas aulas.</p>
+            <div className="my-4 bg-white/10 rounded-2xl p-3">
+              <img src="/gym/produto.png" alt="Produto" loading="lazy" className="w-full h-44 object-contain" />
+            </div>
             <ul className="space-y-2 text-sm">
-              <li>✓ +250 Dinâmicas Interativas</li>
-              <li>✓ Atualizações Mensais</li>
-              <li>✓ Suporte VIP Prioritário</li>
-              <li>✓ Acesso Vitalício</li>
-              <li>✓ Área de Membros Exclusiva</li>
-              <li>✓ Certificado de Ginasta</li>
-              <li>✓ 20 Jogos de Ginástica</li>
-              <li>✓ 100 Exercícios de preparação</li>
+              {[
+                "+250 Dinâmicas Interativas",
+                "Atualizações Mensais",
+                "Suporte VIP Prioritário",
+                "Acesso Vitalício",
+                "Área de Membros Exclusiva",
+                "Certificado de Ginasta",
+                "20 Jogos de Ginástica",
+                "100 Exercícios de preparação",
+              ].map((i) => (
+                <li key={i} className="flex gap-2"><span className="text-gold font-bold">✓</span>{i}</li>
+              ))}
             </ul>
-            <p className="mt-4 text-sm text-muted-foreground line-through">De R$ 147 por:</p>
-            <p className="text-3xl font-extrabold text-primary">R$ 27,00</p>
-            <p className="text-xs text-muted-foreground">Acesso Vitalício</p>
-            <a href={LINK_PREMIUM} className="mt-6 block text-center rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 shadow-lg shadow-primary/30">
+            <p className="mt-5 text-sm opacity-80 line-through">De R$ 147 por:</p>
+            <p className="text-4xl font-black text-gold-gradient">R$ 27,00</p>
+            <p className="text-xs opacity-80">Acesso Vitalício</p>
+            <a href={LINK_PREMIUM} className="mt-6 block text-center rounded-full bg-gradient-to-r from-gold to-pink-neon text-purple-deep font-black py-3.5 shadow-glow-gold hover:scale-[1.02] transition">
               QUERO O PREMIUM
             </a>
-            <p className="mt-3 text-center text-xs text-muted-foreground">✓ Garantia de 7 dias ou seu dinheiro de volta</p>
+            <p className="mt-3 text-center text-xs opacity-80">✓ Garantia de 7 dias ou seu dinheiro de volta</p>
           </div>
         </div>
       </section>
 
       {/* Depoimentos */}
-      <section className="bg-white px-4 py-12">
-        <p className="text-center text-xs font-bold text-primary tracking-widest">RESULTADOS REAIS</p>
-        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl mt-2">
-          Depoimentos de <span className="text-primary">Clientes</span>
+      <section className="bg-white px-4 py-14">
+        <p className="text-center text-xs font-bold text-pink-neon tracking-widest">RESULTADOS REAIS</p>
+        <h2 className="text-center font-display font-black text-2xl sm:text-3xl mt-2">
+          Depoimentos de <span className="text-purple-royal">Clientes</span>
         </h2>
         <p className="text-center text-sm text-muted-foreground mt-2 max-w-xl mx-auto">
           Veja o que professores, pais, academias e educadores estão dizendo sobre o material.
         </p>
 
-        <div className="mt-10 max-w-5xl mx-auto space-y-10">
+        <div className="mt-10 max-w-6xl mx-auto space-y-10">
           {[
             {
               icon: "🤸",
@@ -311,19 +368,19 @@ function Index() {
             },
           ].map((cat) => (
             <div key={cat.label}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-pink-soft flex items-center justify-center text-xl">{cat.icon}</div>
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-royal to-pink-neon text-white flex items-center justify-center text-xl shadow-glow-purple">{cat.icon}</div>
                 <h3 className="font-display font-bold text-lg">{cat.label}</h3>
-                <div className="flex-1 h-px bg-pink-soft" />
+                <div className="flex-1 h-px bg-gradient-to-r from-pink-soft to-transparent" />
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {cat.items.map((d) => (
-                  <div key={d.name} className="bg-pink-bg rounded-2xl p-5 shadow-sm border border-pink-soft flex flex-col">
-                    <div className="text-yellow-500 text-sm">★★★★★</div>
-                    <p className="italic font-semibold text-foreground mt-2">"{d.quote}"</p>
+                  <div key={d.name} className="bg-white rounded-3xl p-6 shadow-md border border-pink-soft hover:shadow-glow-pink transition flex flex-col">
+                    <div className="text-gold text-base tracking-wider">★★★★★</div>
+                    <p className="italic font-bold text-foreground mt-2 text-base">"{d.quote}"</p>
                     <p className="text-sm text-muted-foreground mt-2 flex-1">{d.text}</p>
-                    <div className="flex items-center gap-3 mt-4 pt-4 border-t border-pink-soft">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center font-bold text-sm">
+                    <div className="flex items-center gap-3 mt-5 pt-4 border-t border-pink-soft">
+                      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-royal to-pink-neon text-white flex items-center justify-center font-black text-sm shadow-glow-purple">
                         {d.initials}
                       </div>
                       <div>
@@ -340,38 +397,38 @@ function Index() {
       </section>
 
       {/* Garantia */}
-      <section className="bg-pink-bg px-4 py-12 text-center">
-        <div className="w-16 h-16 mx-auto rounded-full bg-yellow-400 flex items-center justify-center text-2xl">🛡️</div>
-        <h2 className="font-display font-extrabold text-2xl mt-4">Garantia Incondicional</h2>
+      <section className="bg-pink-bg px-4 py-14 text-center">
+        <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-gold to-pink-neon flex items-center justify-center text-3xl shadow-glow-gold">🛡️</div>
+        <h2 className="font-display font-black text-2xl mt-4">Garantia Incondicional de 7 Dias</h2>
         <p className="max-w-xl mx-auto text-sm text-muted-foreground mt-2">
           Teste o material sem risco por 7 dias. Se não fizer sentido para você, devolveremos 100% do seu dinheiro, sem perguntas.
         </p>
       </section>
 
       {/* FAQ */}
-      <section className="bg-white px-4 py-12">
-        <h2 className="text-center font-display font-extrabold text-2xl sm:text-3xl">Perguntas Frequentes</h2>
-        <div className="mt-6 max-w-2xl mx-auto space-y-3">
+      <section className="bg-white px-4 py-14">
+        <h2 className="text-center font-display font-black text-2xl sm:text-3xl">Perguntas Frequentes</h2>
+        <div className="mt-8 max-w-2xl mx-auto space-y-3">
           {[
             ["Como vou acessar o material?", "O acesso é enviado imediatamente para o seu e-mail após a confirmação do pagamento. Você pode baixar os PDFs ou acessar online."],
             ["Serve para qual idade?", "As dinâmicas são adaptáveis para crianças a partir de 4 anos até adolescentes e iniciantes adultas."],
             ["Serve para ginástica artística e rítmica?", "Sim! O material cobre dinâmicas das duas modalidades, com abordagem pedagógica moderna."],
             ["Tenho garantia?", "Sim, garantia incondicional de 7 dias. Se não gostar, devolvemos 100% do seu dinheiro."],
           ].map(([q, a]) => (
-            <details key={q} className="bg-pink-bg rounded-xl p-4">
+            <details key={q} className="bg-pink-bg rounded-2xl p-4 border border-pink-soft">
               <summary className="font-semibold cursor-pointer">{q}</summary>
               <p className="text-sm mt-2 text-muted-foreground">{a}</p>
             </details>
           ))}
         </div>
-        <div className="text-center mt-8">
-          <a href="#planos" className="inline-block rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold px-8 py-4 shadow-lg shadow-primary/30">
+        <div className="text-center mt-10">
+          <a href="#planos" className="inline-block rounded-full bg-gradient-to-r from-gold to-pink-neon text-purple-deep font-black px-10 py-4 shadow-glow-gold hover:scale-105 transition">
             QUERO COMEÇAR AGORA!
           </a>
         </div>
       </section>
 
-      <footer className="bg-foreground text-white/70 text-center text-xs py-6 px-4">
+      <footer className="bg-purple-deep text-white/70 text-center text-xs py-6 px-4">
         © {new Date().getFullYear()} Dinâmicas de Ginástica. Todos os direitos reservados.
       </footer>
     </main>

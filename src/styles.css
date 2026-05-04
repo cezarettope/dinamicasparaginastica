@@ -21,27 +21,42 @@
   --color-pink-soft: var(--pink-soft);
   --color-pink-bg: var(--pink-bg);
   --color-purple-deep: var(--purple-deep);
+  --color-purple-royal: var(--purple-royal);
+  --color-pink-neon: var(--pink-neon);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
   --font-display: "Poppins", system-ui, sans-serif;
 }
 
 :root {
   --radius: 1rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.2 0.04 290);
+  --foreground: oklch(0.18 0.05 290);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.04 290);
-  --primary: oklch(0.65 0.22 350);
+  --card-foreground: oklch(0.18 0.05 290);
+
+  /* Roxo Real */
+  --purple-royal: oklch(0.42 0.22 295);
+  --purple-deep: oklch(0.32 0.20 295);
+
+  /* Rosa Neon */
+  --pink-neon: oklch(0.68 0.30 350);
+
+  /* Dourado */
+  --gold: oklch(0.82 0.16 85);
+  --gold-soft: oklch(0.92 0.10 90);
+
+  --primary: var(--pink-neon);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.55 0.24 290);
+  --secondary: var(--purple-royal);
   --secondary-foreground: oklch(1 0 0);
+  --accent: var(--gold);
+  --accent-foreground: oklch(0.2 0.05 290);
   --muted: oklch(0.96 0.01 320);
-  --muted-foreground: oklch(0.5 0.04 290);
-  --accent: oklch(0.92 0.06 340);
-  --accent-foreground: oklch(0.3 0.1 320);
+  --muted-foreground: oklch(0.45 0.04 290);
   --border: oklch(0.92 0.03 320);
-  --pink-soft: oklch(0.95 0.04 350);
-  --pink-bg: oklch(0.97 0.025 340);
-  --purple-deep: oklch(0.5 0.22 290);
+  --pink-soft: oklch(0.94 0.05 350);
+  --pink-bg: oklch(0.98 0.02 340);
 }
 
 @layer base {
@@ -50,5 +65,32 @@
     background: var(--background);
     color: var(--foreground);
     font-family: "Poppins", system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-royal) 50%, var(--pink-neon) 100%);
+  }
+  .bg-royal-gradient {
+    background: linear-gradient(135deg, var(--purple-royal), var(--purple-deep));
+  }
+  .bg-neon-gradient {
+    background: linear-gradient(135deg, var(--pink-neon), var(--purple-royal));
+  }
+  .text-gold-gradient {
+    background: linear-gradient(90deg, var(--gold), oklch(0.88 0.14 80));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .shadow-glow-pink {
+    box-shadow: 0 10px 40px -10px color-mix(in oklab, var(--pink-neon) 60%, transparent);
+  }
+  .shadow-glow-gold {
+    box-shadow: 0 10px 40px -10px color-mix(in oklab, var(--gold) 50%, transparent);
+  }
+  .shadow-glow-purple {
+    box-shadow: 0 10px 40px -10px color-mix(in oklab, var(--purple-royal) 60%, transparent);
   }
 }
