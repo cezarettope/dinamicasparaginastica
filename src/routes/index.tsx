@@ -10,17 +10,19 @@ const LINK_PREMIUM = `https://go.perfectpay.com.br/PPU38CQBEGF?${UTM_QS}`;
 const LINK_BASICO = `https://go.perfectpay.com.br/PPU38CQBEH4?${UTM_QS}`;
 
 function useCountdown() {
-  const [t, setT] = useState({ h: 0, m: 7, s: 41 });
+  const calc = () => {
+    const now = new Date();
+    const end = new Date(now);
+    end.setHours(23, 59, 59, 999);
+    const diff = Math.max(0, end.getTime() - now.getTime());
+    const h = Math.floor(diff / 3_600_000);
+    const m = Math.floor((diff % 3_600_000) / 60_000);
+    const s = Math.floor((diff % 60_000) / 1000);
+    return { h, m, s };
+  };
+  const [t, setT] = useState(calc);
   useEffect(() => {
-    const i = setInterval(() => {
-      setT((p) => {
-        let { h, m, s } = p;
-        if (s > 0) s--;
-        else if (m > 0) { m--; s = 59; }
-        else if (h > 0) { h--; m = 59; s = 59; }
-        return { h, m, s };
-      });
-    }, 1000);
+    const i = setInterval(() => setT(calc()), 1000);
     return () => clearInterval(i);
   }, []);
   return t;
