@@ -20,8 +20,9 @@ function useCountdown() {
     const s = Math.floor((diff % 60_000) / 1000);
     return { h, m, s };
   };
-  const [t, setT] = useState(calc);
+  const [t, setT] = useState({ h: 0, m: 0, s: 0 });
   useEffect(() => {
+    setT(calc());
     const i = setInterval(() => setT(calc()), 1000);
     return () => clearInterval(i);
   }, []);
@@ -44,13 +45,55 @@ function Countdown({ variant = "light" }: { variant?: "light" | "dark" }) {
               : "bg-purple-royal text-white rounded-xl px-3 py-2 text-center min-w-[60px] shadow-glow-purple"
           }
         >
-          <div className="font-extrabold text-xl leading-none tabular-nums">{pad(v)}</div>
+          <div className="font-extrabold text-xl leading-none tabular-nums" suppressHydrationWarning>{pad(v)}</div>
           <div className="text-[10px] uppercase mt-1 tracking-wider opacity-90">{l}</div>
         </div>
       ))}
     </div>
   );
 }
+
+function VSL() {
+  const [play, setPlay] = useState(false);
+  return (
+    <div className="overflow-hidden rounded-[2rem] aspect-[9/16] bg-black relative">
+      {play ? (
+        <video
+          src="/gym/vsl.mp4"
+          poster="/gym/vsl-poster.jpg"
+          controls
+          autoPlay
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover block"
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlay(true)}
+          className="w-full h-full block relative group"
+          aria-label="Reproduzir vídeo"
+        >
+          <img
+            src="/gym/vsl-poster.jpg"
+            alt="Prévia do vídeo"
+            width={600}
+            height={1067}
+            decoding="async"
+            className="w-full h-full object-cover"
+          />
+          <span className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition">
+            <span className="w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-glow-gold">
+              <span className="ml-1 border-l-[18px] border-l-purple-deep border-y-[12px] border-y-transparent" />
+            </span>
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 function Index() {
   return (
@@ -82,15 +125,7 @@ function Index() {
               <div className="bg-gradient-to-br from-gold to-pink-neon p-[3px] rounded-[3rem] shadow-glow-gold">
                 <div className="bg-[#0a0a0a] rounded-[2.8rem] p-3 relative">
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-10" />
-                  <div className="overflow-hidden rounded-[2rem] aspect-[9/16] bg-black">
-                    <video
-                      src="/gym/vsl.mp4"
-                      controls
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover block"
-                    />
-                  </div>
+                  <VSL />
                 </div>
               </div>
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-pink-neon text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-glow-pink">
@@ -227,16 +262,16 @@ function Index() {
         </div>
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-5xl mx-auto relative">
           {[
-            ["/gym/certificado.jpg", "Certificado de Ginasta", "R$ 27"],
-            ["/gym/jogos.jpg", "Jogos de Ginástica", "R$ 37"],
-            ["/gym/exercicios.jpg", "100 Exercícios de Ginástica", "R$ 33"],
+            ["/gym/certificado.webp", "Certificado de Ginasta", "R$ 27"],
+            ["/gym/jogos.webp", "Jogos de Ginástica", "R$ 37"],
+            ["/gym/exercicios.webp", "100 Exercícios de Ginástica", "R$ 33"],
           ].map(([src, name, val]) => (
             <div key={name} className="bg-white text-foreground rounded-2xl overflow-hidden shadow-glow-gold border-2 border-gold relative group hover:-translate-y-1 transition">
               <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-pink-neon to-purple-royal text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-lg rotate-3">
                 GRÁTIS HOJE
               </div>
               <div className="relative h-44 overflow-hidden bg-gradient-to-br from-pink-soft to-pink-bg">
-                <img src={src} alt={name} loading="lazy" className="w-full h-full object-cover" />
+                <img src={src} alt={name} loading="lazy" decoding="async" width="400" height="300" className="w-full h-full object-cover" />
               </div>
               <div className="p-4 text-center">
                 <h3 className="font-bold">{name}</h3>
@@ -287,7 +322,7 @@ function Index() {
             <h3 className="font-bold text-xl mt-2">Plano Premium</h3>
             <p className="text-sm opacity-80">O arsenal completo para suas aulas.</p>
             <div className="my-4 bg-white/10 rounded-2xl p-3">
-              <img src="/gym/produto.png" alt="Produto" loading="lazy" className="w-full h-44 object-contain" />
+              <img src="/gym/produto.webp" alt="Produto" loading="lazy" decoding="async" width="400" height="300" className="w-full h-44 object-contain" />
             </div>
             <ul className="space-y-2 text-sm">
               {[
@@ -429,7 +464,7 @@ function Index() {
       </section>
 
       <footer className="bg-purple-deep text-white/70 text-center text-xs py-6 px-4">
-        © {new Date().getFullYear()} Dinâmicas de Ginástica. Todos os direitos reservados.
+        © {CURRENT_YEAR} Dinâmicas de Ginástica. Todos os direitos reservados.
       </footer>
     </main>
   );
