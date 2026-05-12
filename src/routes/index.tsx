@@ -20,8 +20,9 @@ function useCountdown() {
     const s = Math.floor((diff % 60_000) / 1000);
     return { h, m, s };
   };
-  const [t, setT] = useState(calc);
+  const [t, setT] = useState({ h: 0, m: 0, s: 0 });
   useEffect(() => {
+    setT(calc());
     const i = setInterval(() => setT(calc()), 1000);
     return () => clearInterval(i);
   }, []);
@@ -44,13 +45,55 @@ function Countdown({ variant = "light" }: { variant?: "light" | "dark" }) {
               : "bg-purple-royal text-white rounded-xl px-3 py-2 text-center min-w-[60px] shadow-glow-purple"
           }
         >
-          <div className="font-extrabold text-xl leading-none tabular-nums">{pad(v)}</div>
+          <div className="font-extrabold text-xl leading-none tabular-nums" suppressHydrationWarning>{pad(v)}</div>
           <div className="text-[10px] uppercase mt-1 tracking-wider opacity-90">{l}</div>
         </div>
       ))}
     </div>
   );
 }
+
+function VSL() {
+  const [play, setPlay] = useState(false);
+  return (
+    <div className="overflow-hidden rounded-[2rem] aspect-[9/16] bg-black relative">
+      {play ? (
+        <video
+          src="/gym/vsl.mp4"
+          poster="/gym/vsl-poster.jpg"
+          controls
+          autoPlay
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover block"
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlay(true)}
+          className="w-full h-full block relative group"
+          aria-label="Reproduzir vídeo"
+        >
+          <img
+            src="/gym/vsl-poster.jpg"
+            alt="Prévia do vídeo"
+            width={600}
+            height={1067}
+            decoding="async"
+            className="w-full h-full object-cover"
+          />
+          <span className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition">
+            <span className="w-16 h-16 rounded-full bg-white/95 flex items-center justify-center shadow-glow-gold">
+              <span className="ml-1 border-l-[18px] border-l-purple-deep border-y-[12px] border-y-transparent" />
+            </span>
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 function Index() {
   return (
