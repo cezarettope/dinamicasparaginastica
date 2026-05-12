@@ -262,9 +262,9 @@ function Index() {
         </div>
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-5xl mx-auto relative">
           {[
-            ["/gym/certificado.jpg", "Certificado de Ginasta", "R$ 27"],
-            ["/gym/jogos.jpg", "Jogos de Ginástica", "R$ 37"],
-            ["/gym/exercicios.jpg", "100 Exercícios de Ginástica", "R$ 33"],
+            ["/gym/certificado.webp", "Certificado de Ginasta", "R$ 27"],
+            ["/gym/jogos.webp", "Jogos de Ginástica", "R$ 37"],
+            ["/gym/exercicios.webp", "100 Exercícios de Ginástica", "R$ 33"],
           ].map(([src, name, val]) => (
             <div key={name} className="bg-white text-foreground rounded-2xl overflow-hidden shadow-glow-gold border-2 border-gold relative group hover:-translate-y-1 transition">
               <div className="absolute top-3 right-3 z-10 bg-gradient-to-r from-pink-neon to-purple-royal text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-lg rotate-3">
@@ -322,7 +322,7 @@ function Index() {
             <h3 className="font-bold text-xl mt-2">Plano Premium</h3>
             <p className="text-sm opacity-80">O arsenal completo para suas aulas.</p>
             <div className="my-4 bg-white/10 rounded-2xl p-3">
-              <img src="/gym/produto.png" alt="Produto" loading="lazy" className="w-full h-44 object-contain" />
+              <img src="/gym/produto.webp" alt="Produto" loading="lazy" className="w-full h-44 object-contain" />
             </div>
             <ul className="space-y-2 text-sm">
               {[
@@ -464,7 +464,7 @@ function Index() {
       </section>
 
       <footer className="bg-purple-deep text-white/70 text-center text-xs py-6 px-4">
-        © {new Date().getFullYear()} Dinâmicas de Ginástica. Todos os direitos reservados.
+        © {CURRENT_YEAR} Dinâmicas de Ginástica. Todos os direitos reservados.
       </footer>
     </main>
   );
