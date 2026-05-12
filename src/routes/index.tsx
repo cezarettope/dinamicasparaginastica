@@ -125,15 +125,7 @@ function Index() {
               <div className="bg-gradient-to-br from-gold to-pink-neon p-[3px] rounded-[3rem] shadow-glow-gold">
                 <div className="bg-[#0a0a0a] rounded-[2.8rem] p-3 relative">
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-10" />
-                  <div className="overflow-hidden rounded-[2rem] aspect-[9/16] bg-black">
-                    <video
-                      src="/gym/vsl.mp4"
-                      controls
-                      playsInline
-                      preload="metadata"
-                      className="w-full h-full object-cover block"
-                    />
-                  </div>
+                  <VSL />
                 </div>
               </div>
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-pink-neon text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-glow-pink">
