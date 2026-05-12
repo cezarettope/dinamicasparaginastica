@@ -6,8 +6,8 @@ export const Route = createFileRoute("/")({ component: Index });
 const UTM_QS =
   "utm_source=FB&utm_campaign={{campaign.name}}|{{campaign.id}}&utm_medium={{adset.name}}|{{adset.id}}&utm_content={{ad.name}}|{{ad.id}}&utm_term={{placement}}";
 
-const LINK_PREMIUM = `https://go.perfectpay.com.br/PPU38CQBEGF?${UTM_QS}`;
-const LINK_BASICO = `https://go.perfectpay.com.br/PPU38CQBEH4?${UTM_QS}`;
+const LINK_PREMIUM = `https://pay.wiapy.com/qbr3F77gQf?${UTM_QS}`;
+const LINK_BASICO = `https://pay.wiapy.com/gfkLO9_ixg?${UTM_QS}`;
 
 function useCountdown() {
   const calc = () => {
