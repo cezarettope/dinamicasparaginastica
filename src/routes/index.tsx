@@ -271,7 +271,7 @@ function Index() {
                 GRÁTIS HOJE
               </div>
               <div className="relative h-44 overflow-hidden bg-gradient-to-br from-pink-soft to-pink-bg">
-                <img src={src} alt={name} loading="lazy" className="w-full h-full object-cover" />
+                <img src={src} alt={name} loading="lazy" decoding="async" width="400" height="300" className="w-full h-full object-cover" />
               </div>
               <div className="p-4 text-center">
                 <h3 className="font-bold">{name}</h3>
@@ -322,7 +322,7 @@ function Index() {
             <h3 className="font-bold text-xl mt-2">Plano Premium</h3>
             <p className="text-sm opacity-80">O arsenal completo para suas aulas.</p>
             <div className="my-4 bg-white/10 rounded-2xl p-3">
-              <img src="/gym/produto.webp" alt="Produto" loading="lazy" className="w-full h-44 object-contain" />
+              <img src="/gym/produto.webp" alt="Produto" loading="lazy" decoding="async" width="400" height="300" className="w-full h-44 object-contain" />
             </div>
             <ul className="space-y-2 text-sm">
               {[
